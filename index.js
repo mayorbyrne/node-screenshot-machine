@@ -76,7 +76,7 @@ Screenshotmachine.prototype.get = function get(options, done) {
   var self = this;
   options = options || {};
 
-  if (!options.url){
+  if (!options.url) {
     return Promise.reject('Url required').nodeify(done);
   }
 
@@ -89,22 +89,21 @@ Screenshotmachine.prototype.get = function get(options, done) {
         reject(err);
       })
       .once('response', function(response) {
-        console.log(response);
         // Screenshot machine errors are returned in this header.
         // https://screenshotmachine.com/apiguide.php      
-        if (response.headers['X-Screenshotmachine-Response']) {
-          reject(response.headers['X-Screenshotmachine-Response']);
+        if (response.headers['x-screenshotmachine-response']) {
+          reject(response.headers['x-screenshotmachine-response']);
         } else if (options.uploadStream) {
           response.pipe(options.uploadStream);
           options.uploadStream.on('error', function(err) {
             reject(err);
           });
 
-          options.uploadStream.once('uploaded', function(details) {
-            resolve(details);
+          options.uploadStream.once('finish', function() {
+            resolve(response);
           });
         } else {
-          resolve(response.toJSON());
+          resolve(response);
         }
       });
   }).nodeify(done);

@@ -4,7 +4,7 @@
   "description": "nodejs wrapper for Screenshotmachine's API",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha test --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "dependencies": {
     "bluebird": "^2.9.8",
     "request": "^2.53.0"
+  },
+  "devDependencies": {
+    "readable-stream": "^1.0.33",
+    "should": "^5.0.0"
   }
 }
