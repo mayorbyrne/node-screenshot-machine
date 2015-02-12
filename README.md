@@ -1,121 +1,101 @@
-## node-screenshot-machine
+# node-screenshot-machine
 
-1. [API](#api)
-1. [Installing](#installing)
-1. [Initializing node-screenshot-machine](#initializing-node-screens)
-1. [Getting a Screenshot](#getting-a-screenshot)
-1. [Options](#options)
-1. [Saving a screenshot to a file](#saving-a-screenshot-to-a-)
-1. [License](#license)
-1. [See also](#see-also)
+Simple node.js wrapper for [Screenshot Machine](http://www.screenshotmachine.com/)'s API.
 
-### <a id="node-screenshot-machine" href="#node-screenshot-machine">node-screenshot-machine</a>
-Simple nodejs wrapper for [Screenshot Machine](http://www.screenshotmachine.com/)'s API.
-
-### <a id="api" href="#api">API</a>
+## API
 
 Screenshot Machine provides a very simple url-based [API](http://www.screenshotmachine.com/apiguide.php), with config options passed as optional url params. This library provides a convenient, node-ish wrapper that makes using Screenshot Machine in your node app a snap.
 
-### <a id="installing" href="#installing">Installing</a>
-To install, simply run ```npm install node-screenshot-machine```
-or git clone this repo, and run ```npm install```
+## Installation
 
-### <a id="initializing-node-screens" href="#initializing-node-screens">Initializing node-screenshot-machine</a>
+Run `npm install node-screenshot-machine`
+
+or `git clone` then `npm install`
+
+Optionally run unit tests: `npm test`
+
+## Setup
+
 Initializing the node-screenshot-machine module is simple:
 
 ```js
 var screenshot = require('node-screenshot-machine')({
-  key: ***** //your screenshotmachine key
+  key: ***** // your screenshotmachine API key
 });
 ```
 
-### <a id="getting-a-screenshot" href="#getting-a-screenshot">Getting a Screenshot</a>
-```.get(options, callback)```
+## Capture
 
-Now that we have initialized the node-screenshot-machine module, we can get
-a screenshot.  The module handles promise-style as well as callback-style.
+Capturing a website screenshot is also simple:
+
+`screenshot.get(options, callback)`
+
+The module handles standard callback-style invocation:
 
 ```js
 screenshot.get({
-  url: 'www.test.com',
-  size: 'F',
-  cache: 0,
-  timeout: 0
-}, function(err, data){
-  // handle the callback
+  url: 'www.test.com'
+},
+function(err, result){
+  if (err) {
+    // handle error
+  }
+  // handle result
 });
 ```
 
-or
+as well as [promise](https://github.com/petkaantonov/bluebird)-style:
 
 ```js
 screenshot.get({
   url: 'www.test.com'
 })
-.then(function(data){
-  // handle data
+.then(function(result){
+  // handle result
 })
 .catch(function(err){
-  // handle errors
+  // handle error
 });
 ```
 
-### <a id="options" href="#options">Options</a>
+### Options
 
-Required fields:
-- url (the site to capture screenshot for)
+Complete details can be found in Screenshot Machine's [API guide](https://www.screenshotmachine.com/apiguide.php).
 
-Options include (in more detail [here](https://www.screenshotmachine.com/apiguide.php):
+**Required Fields**
 
-*   size
-*   cache
-*   timeout
-*   format
-*   hash
-*   timeout
-*   uploadStream (You can also pass an upload stream in, if you would like to pipe the data directly to it with this option)
+- **url**: the web page to capture a screenshot for
 
-### <a id="saving-a-screenshot-to-a-" href="#saving-a-screenshot-to-a-">Saving a screenshot to a file</a>
+**Optional Fields**
 
-If we want to save the screenshot to a file, we can do something like this:
+- **size**: Captured image size (defaults to 'T' - 120 x 90px)
+- **format**: Image file format (defaults to 'JPG')
+- **hash**: MD5 hash used for security purposes when called from a web page (defaults to blank)
+- **cacheLimit**: How many days to allow images from cache (defaults to 14 days)
+- **timeout**: Capture timeout (defaults to 200ms)
+
+### Streaming
+
+Note that the `screenshot.get` method optionally supports streaming the captured image directly to any [writable stream](http://nodejs.org/api/stream.html#stream_class_stream_writable) using the optional `writeStream` field:
 
 ```js
-var file = require('fs').createWriteStream('example.png');
+var siteImage = require('fs').createWriteStream('siteImage.png');
 
 screenshot.get({
-  format: 'PNG',
   url: 'www.someurl.com',
-  uploadStream: file
-})
-
+  format: 'PNG',
+  writeStream: file
+});
 ```
 
-example.png will then be similar to this:
-
-```
-950 4e47 0d0a 1a0a 0000 000d 4948 4452
-0000 0400 0000 0494 0806 0000 00f9 ea7f
-d600 0000 0970 4859 7300 000f 6100 000f
-6101 a83f a769 0000 2000 4944 4154 789c
-ecdd 6f8c 1ec7 7de0 f9ea 21e9 1c15 4b43
-4bf2 6913 c922 0d78 6dd9 1b8b 9402 ac83
-b368 527b 58ef 0670 42be cae1 0c1b a210
-67ef c526 310d 6c76 0de4 004f 8235 b077
-5e20 7436 7991 6c0e 1a21 8117 c81b 5197
-
-....
-....
-....
-```
-### <a id="license" href="#license">License</a>
+## License
 
 **MIT**
 
-Copyright (c) 2015 Level Seven
+Copyright &copy; 2015 Level Seven
 
-### <a id="see-also" href="#see-also">See also</a>
+## Contributors
 
-External resources
-
-* [Screenshot machine - www.screenshotmachine.com](http://www.screenshotmachine.com/)
-* [Screenshot machine - API guide - www.screenshotmachine.com](https://www.screenshotmachine.com/apiguide.php)
+- [Kevin Moritz](https://github.com/ecorkevin)
+- [Brian Moeskau](https://github.com/bmoeskau)
+- [Todd Bluhm](https://github.com/toddbluhm)
