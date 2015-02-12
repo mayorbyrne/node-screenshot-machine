@@ -83,9 +83,9 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
  *   Can choose from 0, 200, 400, 600, 800, or 1000
  * @param {Object} [options.writeStream] An writeStream object, capable of receiving piped input.
  *   If provided, will pipe the response directly to the provided stream before returning the response
- *   to the callback/BPromise.
+ *   to the callback/promise.
  *
- * @returns {BPromise/Function} done callback/BPromise.  If writeStream is provided, will return the
+ * @returns {Promise/Function} done callback/promise.  If writeStream is provided, will return the
  *   details from the upload, otherwise will return a JSON representation of the response from
  *   screenshotmachine.
  */
