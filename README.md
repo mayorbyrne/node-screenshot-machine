@@ -28,7 +28,7 @@ var screenshot = require('node-screenshot-machine')({
 
 Capturing a website screenshot is also simple:
 
-`screenshot.get(options, callback)`
+`screenshot.get(options, callback);`
 
 The module handles standard callback-style invocation:
 
@@ -64,7 +64,7 @@ These are all the options supported by the `.get` method (complete details can b
 
 **Required**
 
-- **url**: the web page to capture a screenshot for
+- **url**: The web page to capture a screenshot for
 
 **Optional**
 
