@@ -21,6 +21,7 @@
     "request": "^2.53.0"
   },
   "devDependencies": {
+    "mocha": "^2.1.0",
     "readable-stream": "^1.0.33",
     "should": "^5.0.0"
   }
