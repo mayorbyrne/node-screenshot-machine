@@ -1,17 +1,17 @@
 var should = require('should'),
-  writeStream;
+  writeStream, ssm;
 
-describe('Screenshot Machine', function() {
+describe('Screenshot Machine', function () {
 
-  describe('initialize', function() {
+  describe('initialize', function () {
 
-    it('with no key should throw error', function(){
-      ssm = (function(){
+    it('with no key should throw error', function () {
+      ssm = (function () {
         require('../')();
       }).should.throw('Screenshotmachine Key required');
     });
 
-    it('with options should set default options', function() {
+    it('with options should set default options', function () {
       ssm = require('../')({
         key: '12345',
         timeout: 0,
@@ -29,7 +29,7 @@ describe('Screenshot Machine', function() {
       ssm.options.hash.should.equal('555');
     });
 
-    it('with no options should not set any options', function() {
+    it('with no options should not set any options', function () {
       ssm = require('../')({
         key: '12345'
       });
@@ -42,26 +42,26 @@ describe('Screenshot Machine', function() {
     });
   });
 
-  describe('.generateUrl()', function() {
+  describe('.generateUrl()', function () {
     var baseUrl = 'http://api.screenshotmachine.com/?',
       ssm = require('../')({
         key: '123456'
       });
 
-    it('called with no options should throw error', function() {
+    it('called with no options should throw error', function () {
       ssm.generateUrl.bind(ssm).should.throw('Url required');
     });
 
-    describe('called with url', function() {
-      it('should return the baseUrl with key & url', function() {
+    describe('called with url', function () {
+      it('should return the baseUrl with key & url', function () {
         ssm.generateUrl({
           url: 'www.test.com'
         }).should.equal(baseUrl + 'key=123456&url=www.test.com');
       });
     });
 
-    describe('called with size', function() {
-      it('should return the baseUrl with key, url & size', function() {
+    describe('called with size', function () {
+      it('should return the baseUrl with key, url & size', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           size: 'F'
@@ -69,8 +69,8 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('called with format', function() {
-      it('should return the baseUrl with key, url & format', function() {
+    describe('called with format', function () {
+      it('should return the baseUrl with key, url & format', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           format: 'PNG'
@@ -78,8 +78,8 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('called with hash', function() {
-      it('should return the baseUrl with key, url & hash', function() {
+    describe('called with hash', function () {
+      it('should return the baseUrl with key, url & hash', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           hash: 'x6c6x7s6'
@@ -87,8 +87,8 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('called with cacheLimit', function() {
-      it('should return the baseUrl with key, url & cacheLimit', function() {
+    describe('called with cacheLimit', function () {
+      it('should return the baseUrl with key, url & cacheLimit', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           cacheLimit: 0
@@ -96,8 +96,8 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('called with timeout', function() {
-      it('should return the baseUrl with key, url & timeout', function() {
+    describe('called with timeout', function () {
+      it('should return the baseUrl with key, url & timeout', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           timeout: 0
@@ -105,8 +105,8 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('called with multiple options', function() {
-      it('should return the baseUrl with all options specified', function() {
+    describe('called with multiple options', function () {
+      it('should return the baseUrl with all options specified', function () {
         ssm.generateUrl({
           url: 'www.test.com',
           hash: '12345',
@@ -120,26 +120,26 @@ describe('Screenshot Machine', function() {
 
   });
 
-  describe('.get()', function() {
+  describe('.get()', function () {
     var results,
       ssm = require('../')({
         key: '12345',
         request: require('./mocks/request')()
       });
 
-    describe('when string is passed in', function(){
-      before(function(done){
+    describe('when string is passed in', function () {
+      before(function (done) {
         ssm.get('www.test.com')
-        .then(function(data){
-          results = data;
-          done();
-        });
+          .then(function (data) {
+            results = data;
+            done();
+          });
       });
-      it('results should have a statusCode of 200', function() {
+      it('results should have a statusCode of 200', function () {
         results.statusCode.should.equal(200);
       });
 
-      it('results should return the correct headers', function() {
+      it('results should return the correct headers', function () {
         results.headers['content-type'].should.equal('image/png');
         results.headers['content-description'].should.equal('File Transfer');
         results.headers['content-transfer-encoding'].should.equal('binary');
@@ -147,11 +147,11 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('when writeStream is provided', function() {
+    describe('when writeStream is provided', function () {
 
-      before(function(done) {
+      before(function (done) {
         writeStream = require('./mocks/writeStream')();
-        writeStream.once('testChunk', function(chunkData) {
+        writeStream.once('testChunk', function (chunkData) {
           chunkData.should.equal('test readable stream data');
         });
 
@@ -159,17 +159,17 @@ describe('Screenshot Machine', function() {
             url: 'www.test.com',
             writeStream: writeStream
           })
-          .then(function(data) {
+          .then(function (data) {
             results = data;
             done();
           });
       });
 
-      it('results should have a statusCode of 200', function() {
+      it('results should have a statusCode of 200', function () {
         results.statusCode.should.equal(200);
       });
 
-      it('results should return the correct headers', function() {
+      it('results should return the correct headers', function () {
         results.headers['content-type'].should.equal('image/png');
         results.headers['content-description'].should.equal('File Transfer');
         results.headers['content-transfer-encoding'].should.equal('binary');
@@ -177,23 +177,23 @@ describe('Screenshot Machine', function() {
       });
     });
 
-    describe('when no writeStream is provided', function() {
+    describe('when no writeStream is provided', function () {
 
-      before(function(done) {
+      before(function (done) {
         ssm.get({
             url: 'www.test.com'
           })
-          .then(function(data) {
+          .then(function (data) {
             results = data;
             done();
           });
       });
 
-      it('results should have a statusCode of 200', function() {
+      it('results should have a statusCode of 200', function () {
         results.statusCode.should.equal(200);
       });
 
-      it('results should return the correct headers', function() {
+      it('results should return the correct headers', function () {
         results.headers['content-type'].should.equal('image/png');
         results.headers['content-description'].should.equal('File Transfer');
         results.headers['content-transfer-encoding'].should.equal('binary');
@@ -202,33 +202,33 @@ describe('Screenshot Machine', function() {
 
     });
 
-    describe('when screenshotmachine returns an error', function() {
+    describe('when screenshotmachine returns an error', function () {
 
-      before(function(done) {
+      before(function (done) {
         ssm.get({
             url: 'fail'
           })
-          .catch(function(err) {
+          .catch(function (err) {
             results = err;
             done();
-          })
+          });
       });
 
-      it('err should exist and be "invalid_url"', function() {
+      it('err should exist and be "invalid_url"', function () {
         results.should.equal('invalid_url');
       });
 
-      describe('callback style', function() {
-        before(function(done) {
+      describe('callback style', function () {
+        before(function (done) {
           ssm.get({
             url: 'fail'
-          }, function(err, data) {
+          }, function (err, data) {
             results = err;
             done();
           });
         });
 
-        it('err should exist and be "invalid_url"', function() {
+        it('err should exist and be "invalid_url"', function () {
           results.should.equal('invalid_url');
         });
       });

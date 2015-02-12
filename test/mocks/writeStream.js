@@ -11,7 +11,7 @@ function writeStream(options) {
 
 util.inherits(writeStream, Writable);
 
-writeStream.prototype._write = function(chunk, encoding, done) {
+writeStream.prototype._write = function (chunk, encoding, done) {
   this.emit('testChunk', chunk);
   done(null);
 };
