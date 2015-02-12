@@ -1,5 +1,5 @@
 var qs = require('querystring'),
-  Promise = require('bluebird');
+  BPromise = require('bluebird');
 
 function Screenshotmachine(config) {
   config = config || {};
@@ -18,7 +18,7 @@ function Screenshotmachine(config) {
     hash: config.hash,
     cacheLimit: config.cacheLimit,
     timeout: config.timeout
-  }
+  };
 }
 
 /**
@@ -62,7 +62,7 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
   }
 
   return this.baseUrl + qs.stringify(screenshotMachineOptions);
-}
+};
 
 /**
  * Get a screenshot from screenshotmachine
@@ -95,24 +95,24 @@ Screenshotmachine.prototype.get = function get(options, done) {
   if (typeof options === 'string') {
     options = {
       url: options
-    }
+    };
   }
 
   options = options || {};
 
   if (!options.url) {
-    return Promise.reject('Url required').nodeify(done);
+    return BPromise.reject('Url required').nodeify(done);
   }
 
-  return new Promise(function(resolve, reject) {
+  return new BPromise(function (resolve, reject) {
     self.request
       .get({
         url: self.generateUrl(options)
       })
-      .once('error', function(err) {
+      .once('error', function (err) {
         reject(err);
       })
-      .once('response', function(response) {
+      .once('response', function (response) {
         // Screenshot machine errors are returned in this header.
         // https://screenshotmachine.com/apiguide.php
         if (response.headers['x-screenshotmachine-response']) {
@@ -120,11 +120,11 @@ Screenshotmachine.prototype.get = function get(options, done) {
         }
         else if (options.writeStream) {
           response.pipe(options.writeStream);
-          options.writeStream.on('error', function(err) {
+          options.writeStream.on('error', function (err) {
             reject(err);
           });
 
-          options.writeStream.once('finish', function() {
+          options.writeStream.once('finish', function () {
             resolve(response);
           });
         }
@@ -133,8 +133,8 @@ Screenshotmachine.prototype.get = function get(options, done) {
         }
       });
   }).nodeify(done);
-}
+};
 
-module.exports = exports = function(options) {
+module.exports = exports = function (options) {
   return new Screenshotmachine(options);
 };

@@ -18,7 +18,7 @@ function RequestStreamSuccess(options) {
   ];
   this.counter = 0;
   Readable.call(this, options);
-  setTimeout(function() {
+  setTimeout(function () {
     self.emit('response', self);
   }, 100);
 }
@@ -27,8 +27,8 @@ function RequestStreamFail(options) {
   var self = this;
   this.headers = {
     'x-screenshotmachine-response': 'invalid_url'
-  }
-  setTimeout(function() {
+  };
+  setTimeout(function () {
     self.emit('response', self);
   }, 100);
 }
