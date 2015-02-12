@@ -11,21 +11,21 @@ module.exports = function (grunt) {
     jshint: {
       all: files,
       options: {
-        jshintrc: '../common/config/.jshintrc'
+        jshintrc: './config/.jshintrc'
       }
     },
     jsbeautifier: {
       modify: {
         src: files,
         options: {
-          config: '../common/config/.jsbeautifyrc'
+          config: './config/.jsbeautifyrc'
         }
       },
       verify: {
         src: files,
         options: {
           mode: 'VERIFY_ONLY',
-          config: '../common/config/.jsbeautifyrc'
+          config: './config/.jsbeautifyrc'
         }
       }
     },
