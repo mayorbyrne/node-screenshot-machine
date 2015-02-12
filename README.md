@@ -60,13 +60,13 @@ screenshot.get({
 
 ### Options
 
-Complete details can be found in Screenshot Machine's [API guide](https://www.screenshotmachine.com/apiguide.php).
+These are all the options supported by the `.get` method (complete details can be found in Screenshot Machine's [API guide](https://www.screenshotmachine.com/apiguide.php)):
 
-**Required Fields**
+**Required**
 
 - **url**: the web page to capture a screenshot for
 
-**Optional Fields**
+**Optional**
 
 - **size**: Captured image size (defaults to 'T' - 120 x 90px)
 - **format**: Image file format (defaults to 'JPG')
@@ -76,15 +76,15 @@ Complete details can be found in Screenshot Machine's [API guide](https://www.sc
 
 ### Streaming
 
-Note that the `screenshot.get` method optionally supports streaming the captured image directly to any [writable stream](http://nodejs.org/api/stream.html#stream_class_stream_writable) using the optional `writeStream` field:
+Note that the `screenshot.get` method optionally supports streaming the captured image directly to any [writable stream](http://nodejs.org/api/stream.html#stream_class_stream_writable) using the optional `writeStream` option:
 
 ```js
-var siteImage = require('fs').createWriteStream('siteImage.png');
+var imageFileStream = require('fs').createWriteStream('siteImage.png');
 
 screenshot.get({
   url: 'www.someurl.com',
   format: 'PNG',
-  writeStream: file
+  writeStream: imageFileStream
 });
 ```
 
