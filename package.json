@@ -1,0 +1,28 @@
+{
+  "name": "node-screenshot-machine",
+  "version": "1.0.0",
+  "description": "nodejs wrapper for Screenshotmachine's API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/L7Labs/node-screenshot-machine.git"
+  },
+  "author": "Level Seven",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/L7Labs/node-screenshot-machine/issues"
+  },
+  "homepage": "https://github.com/L7Labs/node-screenshot-machine",
+  "dependencies": {
+    "bluebird": "^2.9.8",
+    "request": "^2.53.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "readable-stream": "^1.0.33",
+    "should": "^5.0.0"
+  }
+}
