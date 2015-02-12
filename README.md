@@ -1,4 +1,5 @@
-# node-screenshot-machine
+
+[![Circle CI](https://circleci.com/gh/L7labs/node-screenshot-machine.svg?style=svg)](https://circleci.com/gh/L7labs/node-screenshot-machine)
 
 Simple node.js wrapper for [Screenshot Machine](http://www.screenshotmachine.com/)'s API.
 
