@@ -48,19 +48,15 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
   if (size) {
     screenshotMachineOptions.size = size;
   }
-
   if (format) {
     screenshotMachineOptions.format = format;
   }
-
   if (hash) {
     screenshotMachineOptions.hash = hash;
   }
-
   if (cacheLimit || cacheLimit === 0) {
     screenshotMachineOptions.cacheLimit = cacheLimit;
   }
-
   if (timeout || timeout === 0) {
     screenshotMachineOptions.timeout = timeout;
   }
@@ -118,10 +114,11 @@ Screenshotmachine.prototype.get = function get(options, done) {
       })
       .once('response', function(response) {
         // Screenshot machine errors are returned in this header.
-        // https://screenshotmachine.com/apiguide.php      
+        // https://screenshotmachine.com/apiguide.php
         if (response.headers['x-screenshotmachine-response']) {
           reject(response.headers['x-screenshotmachine-response']);
-        } else if (options.writeStream) {
+        }
+        else if (options.writeStream) {
           response.pipe(options.writeStream);
           options.writeStream.on('error', function(err) {
             reject(err);
@@ -130,7 +127,8 @@ Screenshotmachine.prototype.get = function get(options, done) {
           options.writeStream.once('finish', function() {
             resolve(response);
           });
-        } else {
+        }
+        else {
           resolve(response);
         }
       });
@@ -138,6 +136,5 @@ Screenshotmachine.prototype.get = function get(options, done) {
 }
 
 module.exports = exports = function(options) {
-  options = options || {};
   return new Screenshotmachine(options);
 };
