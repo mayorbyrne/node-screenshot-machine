@@ -10,6 +10,15 @@ function Screenshotmachine(config) {
   this.request = config.request || require('request');
   this.baseUrl = 'http://api.screenshotmachine.com/?';
   this.key = config.key;
+
+  this.options = {
+    key: config.key,
+    size: config.size,
+    format: config.format,
+    hash: config.hash,
+    cacheLimit: config.cacheLimit,
+    timeout: config.timeout
+  }
 }
 
 /**
@@ -30,24 +39,30 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
     url: options.url
   };
 
-  if (options.size) {
-    screenshotMachineOptions.size = options.size;
+  var size = options.size || this.options.size,
+    format = options.format || this.options.format,
+    hash = options.hash || this.options.hash,
+    cacheLimit = (options.cacheLimit || options.cacheLimit === 0) ? options.cacheLimit : this.options.cacheLimit,
+    timeout = (options.timeout || options.timeout === 0) ? options.timeout : this.options.timeout;
+
+  if (size) {
+    screenshotMachineOptions.size = size;
   }
 
-  if (options.format) {
-    screenshotMachineOptions.format = options.format;
+  if (format) {
+    screenshotMachineOptions.format = format;
   }
 
-  if (options.hash) {
-    screenshotMachineOptions.hash = options.hash;
+  if (hash) {
+    screenshotMachineOptions.hash = hash;
   }
 
-  if (options.cacheLimit || options.cacheLimit === 0) {
-    screenshotMachineOptions.cacheLimit = options.cacheLimit;
+  if (cacheLimit || cacheLimit === 0) {
+    screenshotMachineOptions.cacheLimit = cacheLimit;
   }
 
-  if (options.timeout || options.timeout === 0) {
-    screenshotMachineOptions.timeout = options.timeout;
+  if (timeout || timeout === 0) {
+    screenshotMachineOptions.timeout = timeout;
   }
 
   return this.baseUrl + qs.stringify(screenshotMachineOptions);
@@ -80,6 +95,13 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
  */
 Screenshotmachine.prototype.get = function get(options, done) {
   var self = this;
+
+  if (typeof options === 'string') {
+    options = {
+      url: options
+    }
+  }
+
   options = options || {};
 
   if (!options.url) {
