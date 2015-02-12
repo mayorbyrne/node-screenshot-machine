@@ -25,31 +25,29 @@ Screenshotmachine.prototype.generateUrl = function generateUrl(options) {
     throw new Error('Url required');
   }
 
-  if (!this.screenshotMachineOptions){
-    var screenshotMachineOptions = {
-      key: this.key,
-      url: options.url
-    };
+  var screenshotMachineOptions = {
+    key: this.key,
+    url: options.url
+  };
 
-    if (options.size) {
-      screenshotMachineOptions.size = options.size;
-    }
+  if (options.size) {
+    screenshotMachineOptions.size = options.size;
+  }
 
-    if (options.format) {
-      screenshotMachineOptions.format = options.format;
-    }
+  if (options.format) {
+    screenshotMachineOptions.format = options.format;
+  }
 
-    if (options.hash) {
-      screenshotMachineOptions.hash = options.hash;
-    }
+  if (options.hash) {
+    screenshotMachineOptions.hash = options.hash;
+  }
 
-    if (options.cacheLimit || options.cacheLimit === 0) {
-      screenshotMachineOptions.cacheLimit = options.cacheLimit;
-    }
+  if (options.cacheLimit || options.cacheLimit === 0) {
+    screenshotMachineOptions.cacheLimit = options.cacheLimit;
+  }
 
-    if (options.timeout || options.timeout === 0) {
-      screenshotMachineOptions.timeout = options.timeout;
-    }
+  if (options.timeout || options.timeout === 0) {
+    screenshotMachineOptions.timeout = options.timeout;
   }
 
   return this.baseUrl + qs.stringify(screenshotMachineOptions);
