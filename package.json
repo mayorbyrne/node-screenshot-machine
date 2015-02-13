@@ -1,6 +1,6 @@
 {
   "name": "node-screenshot-machine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple node.js wrapper for Screenshot Machine's API",
   "main": "index.js",
   "scripts": {
