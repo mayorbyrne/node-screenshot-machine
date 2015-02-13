@@ -1,7 +1,7 @@
 {
   "name": "node-screenshot-machine",
   "version": "1.0.0",
-  "description": "nodejs wrapper for Screenshotmachine's API",
+  "description": "Simple node.js wrapper for Screenshot Machine's API",
   "main": "index.js",
   "scripts": {
     "test": "mocha test --reporter spec"
