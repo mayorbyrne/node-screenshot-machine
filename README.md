@@ -59,6 +59,20 @@ screenshot.get({
 });
 ```
 
+For ease of use, you can also simply pass in a url string, which
+will capture a screenshot using the default settings (or any settings
+passed in during setup):
+
+```js
+screenshot.get('www.test.com')
+.then(function(result){
+  // handle result
+})
+.catch(function(err){
+  // handle error
+});
+```
+
 ### Options
 
 These are all the options supported by the `.get` method (complete details can be found in Screenshot Machine's [API guide](https://www.screenshotmachine.com/apiguide.php)):
