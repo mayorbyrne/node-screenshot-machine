@@ -3,9 +3,7 @@
 
 Simple node.js wrapper for [Screenshot Machine](http://www.screenshotmachine.com/)'s API.
 
-## API
-
-Screenshot Machine provides a very simple url-based [API](http://www.screenshotmachine.com/apiguide.php), with config options passed as optional url params. This library provides a convenient, node-ish wrapper that makes using Screenshot Machine in your node app a snap.
+Screenshot Machine provides a very simple url-based [API](http://www.screenshotmachine.com/apiguide.php), with config options passed as optional url params. This library provides a convenient node.js wrapper API that makes using Screenshot Machine in your node app a snap.
 
 ## Installation
 
@@ -15,7 +13,7 @@ or `git clone` then `npm install`
 
 Optionally run unit tests: `npm test`
 
-## Setup
+## Usage
 
 Initializing the node-screenshot-machine module is simple:
 
@@ -24,8 +22,6 @@ var screenshot = require('node-screenshot-machine')({
   key: ***** // your screenshotmachine API key
 });
 ```
-
-## Capture
 
 Capturing a website screenshot is also simple:
 
@@ -73,7 +69,9 @@ screenshot.get('www.test.com')
 });
 ```
 
-### Options
+## API
+
+### .get()
 
 These are all the options supported by the `.get` method (complete details can be found in Screenshot Machine's [API guide](https://www.screenshotmachine.com/apiguide.php)):
 
@@ -109,8 +107,9 @@ screenshot.get({
 
 Copyright &copy; 2015 Level Seven
 
+Authored by [Kevin Moritz](https://github.com/ecorkevin)
+
 ## Contributors
 
-- [Kevin Moritz](https://github.com/ecorkevin)
 - [Brian Moeskau](https://github.com/bmoeskau)
 - [Todd Bluhm](https://github.com/toddbluhm)
